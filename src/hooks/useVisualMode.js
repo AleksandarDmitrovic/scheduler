@@ -8,8 +8,7 @@ const useVisualMode = function (initialMode) {
     setMode(() => newMode);
 
     if (!replace) {
-      history.push(newMode);
-      setHistory(history)
+      setHistory([...history, newMode])
     }
   };
   const back = function () {
@@ -21,7 +20,7 @@ const useVisualMode = function (initialMode) {
     const backModeIndex = history.length - 1;
 
     setMode(history[backModeIndex])
-    setHistory(history)
+    // setHistory(history) //WHYYYYY????
   }
 
   return {
