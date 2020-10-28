@@ -5,26 +5,21 @@ const useVisualMode = function (initialMode) {
   const [history, setHistory] = useState([initialMode]);
 
   const transition = function (newMode) {
-    setMode(() => newMode); //history.pop()
+    setMode(() => newMode);
+
     history.push(newMode);
-
     setHistory(history)
-    // console.log('history :', history);
-
   };
   const back = function () {
-    console.log("HERE")
+    if (history.length === 1) {
+      return
+    }
     history.pop()
 
-    const historyLength = history.length;
+    const backModeIndex = history.length - 1;
 
-
-
-    setMode(history[historyLength - 1])
-
-
+    setMode(history[backModeIndex])
     setHistory(history)
-
   }
 
   return {
