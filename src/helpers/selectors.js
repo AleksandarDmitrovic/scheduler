@@ -17,4 +17,18 @@ const getAppointmentsForDay = function (state, day) {
   return results;
 }
 
-export { getAppointmentsForDay };
+const getInterview = function (state, interview) {
+  if (interview === null) {
+    return null;
+  }
+  const interviewerID = interview.interviewer;
+
+  for (const key in (state.interviewers)) {
+    const keyToNum = Number(key)
+    if (interviewerID === keyToNum) {
+      return { ...interview, interviewer: { ...(state.interviewers[key]) } }
+    }
+  }
+}
+
+export { getAppointmentsForDay, getInterview };
