@@ -17,6 +17,25 @@ const getAppointmentsForDay = function (state, day) {
   return results;
 }
 
+const getInterviewersForDay = function (state, day) {
+  //... returns an array of interviewers for that day
+  let results = [];
+  const filteredDay = state.days.filter(dayOfWeek => dayOfWeek.name === day);
+  if (filteredDay.length === 0) {
+    return results;
+  }
+  const interviewerArr = filteredDay[0].interviewers;
+
+  for (const key in (state.interviewers)) {
+    const keyToNum = Number(key)
+    if (interviewerArr.includes(keyToNum)) {
+      results.push(state.interviewers[key])
+    }
+  }
+
+  return results;
+}
+
 const getInterview = function (state, interview) {
   if (interview === null) {
     return null;
@@ -31,4 +50,4 @@ const getInterview = function (state, interview) {
   }
 }
 
-export { getAppointmentsForDay, getInterview };
+export { getAppointmentsForDay, getInterview, getInterviewersForDay };
