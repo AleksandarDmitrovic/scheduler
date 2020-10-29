@@ -19,6 +19,7 @@ const Form = function (props) {
   };
   const save = function () {
     props.onSave(name, interviewer);
+
   };
 
 
