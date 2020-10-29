@@ -53,6 +53,9 @@ export default function Application(props) {
           appointments
         });
       })
+    // .catch(err => {
+    //   console.log('err :', err);
+    // });
   }
 
   const deleteInterview = (id, interview = null) => {
@@ -73,8 +76,9 @@ export default function Application(props) {
           appointments
         });
       })
-
-    console.log('appointments :', appointments);
+    // .catch(err => {
+    //   console.log('err :', err);
+    // });
   }
 
 

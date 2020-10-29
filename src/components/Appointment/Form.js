@@ -3,9 +3,9 @@ import InterviewerList, { setInterviewer } from 'components/InterviewerList';
 import Button from 'components/Button';
 
 const Form = function (props) {
-  // const { name, interviewers, interviewer, onSave, onCancel } = props;
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  console.log('interviewer :', interviewer);
   const changeName = (event) => {
     setName(event.target.value);
   };
