@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useVisualMode = function (initialMode) {
+const useVisualMode = initialMode => {
   const [mode, setMode] = useState(initialMode);
   const [history, setHistory] = useState([initialMode]);
 
