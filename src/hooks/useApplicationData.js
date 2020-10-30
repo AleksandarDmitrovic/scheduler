@@ -1,14 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 
+const SET_DAY = "SET_DAY";
+const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+const SET_INTERVIEW = "SET_INTERVIEW";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case SET_DAY:
+      return { ...state, day: action.day }
+    case SET_APPLICATION_DATA:
+      return {
+        ...state,
+        days: action.days,
+        appointments: action.appointments,
+        interviewers: action.interviewers
+      }
+    case SET_INTERVIEW: {
+      const appointment = {
+        ...state.appointments[action.id],
+        interview: { ...action.interview }
+      };
+      const appointments = {
+        ...state.appointments,
+        [action.id]: appointment
+      };
+      return {
+        ...state,
+        appointments
+      }
+    }
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
+  }
+}
+
 const useApplicationData = () => {
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {}
   });
-  const setDay = day => setState({ ...state, day })
+
+  // const [state, setState] = useState({
+  //   day: "Monday",
+  //   days: [],
+  //   appointments: {},
+  //   interviewers: {}
+  // });
+
+
+  // const setDay = day => setState({ ...state, day })
+
+  const setDay = (day) => dispatch({ type: SET_DAY, day });
+
 
   useEffect(() => {
     Promise.all([
@@ -16,17 +64,23 @@ const useApplicationData = () => {
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then(all => {
+
+      const dataArr = all.map((res) => res.data)
+      const [days, appointments, interviewers] = dataArr
+
+      dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
       // console.log('all :', all);
-      setState(prev =>
-        ({
-          ...prev,
-          days: all[0].data,
-          appointments: all[1].data,
-          interviewers: all[2].data
-        }))
+      // setState(prev =>
+      //   ({
+      //     ...prev,
+      //     days: all[0].data,
+      //     appointments: all[1].data,
+      //     interviewers: all[2].data
+      //   }))
     })
 
   }, [])
+
 
   const setSpotsRemaining = (id, incrementing) => {
     let numOfSpotsRemaining;
@@ -53,49 +107,53 @@ const useApplicationData = () => {
 
 
   const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: { ...interview }
+    // };
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]: appointment
+    // };
 
     const days = setSpotsRemaining(id, false)
 
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(res => {
         console.log('res :', res);
-        setState({
-          ...state,
-          appointments,
-          days
-        });
+        dispatch({ type: SET_INTERVIEW, id, interview });;
+
+        // setState({
+        //   ...state,
+        //   appointments,
+        //   days
+        // });
       })
   }
 
   const deleteInterview = (id, interview = null) => {
 
-    const appointment = {
-      ...state.appointments[id],
-      interview: interview
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: interview
+    // };
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]: appointment
+    // };
 
     const days = setSpotsRemaining(id, true)
 
     return axios.delete(`/api/appointments/${id}`, { data: { interview } })
       .then(res => {
         console.log('res :', res);
-        setState({
-          ...state,
-          appointments,
-          days
-        });
+        dispatch({ type: SET_INTERVIEW, id, interview });
+
+        // setState({
+        //   ...state,
+        //   appointments,
+        //   days
+        // });
       })
   }
 
