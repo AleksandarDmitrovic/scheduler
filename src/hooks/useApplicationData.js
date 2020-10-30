@@ -4,6 +4,7 @@ import axios from 'axios';
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
+const SET_SPOTS = "SET_SPOTS";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -31,6 +32,29 @@ function reducer(state, action) {
         days: action.days
       }
     }
+    case SET_SPOTS: {
+      let numOfSpotsRemaining;
+      let days = [
+        ...state.days
+      ]
+      let id = action.id
+
+      const [theSpotsDay] = days.filter(day => {
+        return day.appointments.includes(id)
+      })
+
+      if (action.incrementing) {
+        numOfSpotsRemaining = theSpotsDay.spots + 1
+      } else {
+        numOfSpotsRemaining = theSpotsDay.spots - 1
+      }
+
+      theSpotsDay.spots = numOfSpotsRemaining
+
+      days[parseInt(theSpotsDay.id, 10) - 1] = theSpotsDay;
+
+      return { days }
+    }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -46,16 +70,6 @@ const useApplicationData = () => {
     interviewers: {}
   });
 
-  // const [state, setState] = useState({
-  //   day: "Monday",
-  //   days: [],
-  //   appointments: {},
-  //   interviewers: {}
-  // });
-
-
-  // const setDay = day => setState({ ...state, day })
-
   const setDay = (day) => dispatch({ type: SET_DAY, day });
 
 
@@ -70,91 +84,58 @@ const useApplicationData = () => {
       const [days, appointments, interviewers] = dataArr
 
       dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers });
-      // console.log('all :', all);
-      // setState(prev =>
-      //   ({
-      //     ...prev,
-      //     days: all[0].data,
-      //     appointments: all[1].data,
-      //     interviewers: all[2].data
-      //   }))
     })
 
   }, [])
 
 
-  const setSpotsRemaining = (id, incrementing) => {
-    let numOfSpotsRemaining;
-    let days = [
-      ...state.days
-    ]
+  // const setSpotsRemaining = (id, incrementing) => {
+  //   let numOfSpotsRemaining;
+  //   let days = [
+  //     ...state.days
+  //   ]
 
-    const [theSpotsDay] = days.filter(day => {
-      return day.appointments.includes(id)
-    })
+  //   const [theSpotsDay] = days.filter(day => {
+  //     return day.appointments.includes(id)
+  //   })
 
-    if (incrementing) {
-      numOfSpotsRemaining = theSpotsDay.spots + 1
-    } else {
-      numOfSpotsRemaining = theSpotsDay.spots - 1
-    }
+  //   if (incrementing) {
+  //     numOfSpotsRemaining = theSpotsDay.spots + 1
+  //   } else {
+  //     numOfSpotsRemaining = theSpotsDay.spots - 1
+  //   }
 
-    theSpotsDay.spots = numOfSpotsRemaining
+  //   theSpotsDay.spots = numOfSpotsRemaining
 
-    days[parseInt(theSpotsDay.id, 10) - 1] = theSpotsDay;
+  //   days[parseInt(theSpotsDay.id, 10) - 1] = theSpotsDay;
 
-    return days
-  }
+  //   return days
+  // }
 
 
   const bookInterview = (id, interview) => {
-    // const appointment = {
-    //   ...state.appointments[id],
-    //   interview: { ...interview }
-    // };
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]: appointment
-    // };
 
-    const days = setSpotsRemaining(id, false)
+    const incrementing = false
+    // const days = setSpotsRemaining(id, false)
+    const days = dispatch({ type: SET_SPOTS, id, incrementing })
 
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(res => {
         console.log('res :', res);
         dispatch({ type: SET_INTERVIEW, id, interview, days });;
-
-        // setState({
-        //   ...state,
-        //   appointments,
-        //   days
-        // });
       })
   }
 
   const deleteInterview = (id, interview = null) => {
 
-    // const appointment = {
-    //   ...state.appointments[id],
-    //   interview: interview
-    // };
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]: appointment
-    // };
-
-    const days = setSpotsRemaining(id, true)
+    const incrementing = true
+    // const days = setSpotsRemaining(id, true)
+    const days = dispatch({ type: SET_SPOTS, id, incrementing })
 
     return axios.delete(`/api/appointments/${id}`, { data: { interview } })
       .then(res => {
         console.log('res :', res);
         dispatch({ type: SET_INTERVIEW, id, interview, days });
-
-        // setState({
-        //   ...state,
-        //   appointments,
-        //   days
-        // });
       })
   }
 
