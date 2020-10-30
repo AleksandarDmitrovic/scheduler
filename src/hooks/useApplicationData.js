@@ -27,7 +27,8 @@ function reducer(state, action) {
       };
       return {
         ...state,
-        appointments
+        appointments,
+        days: action.days
       }
     }
     default:
@@ -121,7 +122,7 @@ const useApplicationData = () => {
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(res => {
         console.log('res :', res);
-        dispatch({ type: SET_INTERVIEW, id, interview });;
+        dispatch({ type: SET_INTERVIEW, id, interview, days });;
 
         // setState({
         //   ...state,
@@ -147,7 +148,7 @@ const useApplicationData = () => {
     return axios.delete(`/api/appointments/${id}`, { data: { interview } })
       .then(res => {
         console.log('res :', res);
-        dispatch({ type: SET_INTERVIEW, id, interview });
+        dispatch({ type: SET_INTERVIEW, id, interview, days });
 
         // setState({
         //   ...state,
