@@ -17,6 +17,17 @@ function reducer(state, action) {
         interviewers: action.interviewers
       }
     case SET_INTERVIEW: {
+      //Check for editing before state change
+      const checkInterview = {
+        ...state.appointments[action.id]
+      }
+
+      let editingAppointment = false;
+      if (checkInterview.interview !== null) {
+        editingAppointment = true;
+      }
+
+
       const id = action.id;
       const interview = action.interview ? { ...action.interview } : null;
 
@@ -42,6 +53,8 @@ function reducer(state, action) {
 
       if (interview === null) {
         numOfSpotsRemaining = theSpotsDay.spots + 1
+      } else if (editingAppointment) {
+        numOfSpotsRemaining = theSpotsDay.spots
       } else {
         numOfSpotsRemaining = theSpotsDay.spots - 1
       }
@@ -107,6 +120,7 @@ const useApplicationData = () => {
     }
     webSocket.onmessage = event => {
       const message = JSON.parse(event.data);
+      console.log('message :', message);
 
       if (message.type === "SET_INTERVIEW") {
         const id = message.id
