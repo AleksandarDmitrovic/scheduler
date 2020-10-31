@@ -96,8 +96,6 @@ const useApplicationData = () => {
   }
 
   const deleteInterview = (id, interview = null) => {
-    // const days = setSpotsRemaining(id, interview)
-    console.log('interview :', interview);
 
     return axios.delete(`/api/appointments/${id}`, { data: { interview } })
       .then(res => {
@@ -118,14 +116,14 @@ const useApplicationData = () => {
 
       if (message.type === "SET_INTERVIEW") {
         const id = message.id
-        const interview = message.interview  //|| null
+        const interview = message.interview
         dispatch({ type: SET_INTERVIEW, id, interview })
       }
     }
     //Cleanup 
     return () => webSocket.close();
 
-  }, []) //state.appointments
+  }, [])
 
 
 
