@@ -90,17 +90,11 @@ const useApplicationData = () => {
   const bookInterview = (id, interview) => {
 
     return axios.put(`/api/appointments/${id}`, { interview })
-      .then(res => {
-        // console.log('res :', res);
-      })
   }
 
   const deleteInterview = (id, interview = null) => {
 
     return axios.delete(`/api/appointments/${id}`, { data: { interview } })
-      .then(res => {
-        // console.log('res :', res);
-      })
   }
 
   useEffect(() => {
