@@ -34,6 +34,7 @@ const Form = function (props) {
             placeholder="Enter Student Name"
             onChange={changeName}
             value={name}
+            data-testid="student-name-input"
           /*
             This must be a controlled component
           */
