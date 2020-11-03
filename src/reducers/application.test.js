@@ -19,7 +19,5 @@ describe("Application", () => {
     );
 
 
-
-
   });
 });
