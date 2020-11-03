@@ -17,15 +17,10 @@ function reducer(state, action) {
         interviewers: action.interviewers
       }
     case SET_INTERVIEW: {
-      //Check for editing before state change
-      const checkInterview = {
-        ...state.appointments[action.id]
-      }
-
-      let editingAppointment = false;
-      if (checkInterview.interview !== null) {
-        editingAppointment = true;
-      }
+      // //Check for editing before state change
+      // const checkInterview = {
+      //   ...state.appointments[action.id]
+      // }
       // let editingAppointment = checkInterview.interview !== null;
 
 
@@ -42,68 +37,70 @@ function reducer(state, action) {
         [id]: appointment
       };
 
-      //Calculating Spots Reamining on UI side
-      let numOfSpotsRemaining;
-      let days = [
-        ...state.days
-      ]
+      // //Calculating Spots Reamining on UI side
+      // let numOfSpotsRemaining;
+      // let days = [
+      //   ...state.days
+      // ]
 
-      let [theSpotsDay] = days.filter(day => {
-        return day.appointments.includes(id)
-      })
+      // let [theSpotsDay] = days.filter(day => {
+      //   return day.appointments.includes(id)
+      // })
 
-      if (interview === null) {
-        numOfSpotsRemaining = theSpotsDay.spots + 1
-      } else if (editingAppointment) {
-        numOfSpotsRemaining = theSpotsDay.spots
-      } else {
-        numOfSpotsRemaining = theSpotsDay.spots - 1
-      }
+      // if (interview === null) {
+      //   numOfSpotsRemaining = theSpotsDay.spots + 1
+      // } else if (editingAppointment) {
+      //   numOfSpotsRemaining = theSpotsDay.spots
+      // } else {
+      //   numOfSpotsRemaining = theSpotsDay.spots - 1
+      // }
 
-
-
-      // /////// Jeremy starts rambling like a fool
-
-
-      // // idempotence
-      // // idem potence
-      // // idem: same
-      // // potence: ability to have an effect / strength / power / magicalpower
-
-
-      // // recalculate all the days's spots.  who cares what they were.
-
-      // const countSpotsOneDay = (dayObj, state) => {
-      //   let answer = 0;
-      //   for (let apptId of dayObj.appointments) {
-      //     if (state.appointments[apptId].interview === null) {
-      //       answer++;
-      //     }
-      //   }
-      //   return answer;
-      // };
-
-      // const days = state.days.map(day => {
-      //   let newSpotCount = countSpotsOneDay(day, state);
-      //   return { ...day, spots: newSpotCount };
-      // });
-
-      // //loop through interviews arr and count which interview is null
-
-      // // const days = [];
-      // // for (let day of state.days) {
-      // //   // stuff
-      // //   days.push(day);
-      // // }
+      // theSpotsDay = { ...theSpotsDay, spots: numOfSpotsRemaining };
+      // days[parseInt(theSpotsDay.id, 10) - 1] = theSpotsDay;
 
 
 
-      // /////// Jeremy generally decreased the quantity of rambling like a fool
+      /////// Jeremy starts rambling like a fool
 
 
-      // theSpotsDay.spots = numOfSpotsRemaining
-      theSpotsDay = { ...theSpotsDay, spots: numOfSpotsRemaining };
-      days[parseInt(theSpotsDay.id, 10) - 1] = theSpotsDay;
+      // idempotence
+      // idem potence
+      // idem: same
+      // potence: ability to have an effect / strength / power / magicalpower
+
+
+      // recalculate all the days's spots.  who cares what they were.
+
+      const countSpotsOneDay = (dayObj, state) => {
+        let answer = 0;
+        for (let apptId of dayObj.appointments) {
+          if (appointments[apptId].interview === null) {
+            answer++;
+          }
+        }
+        return answer;
+      };
+
+      const days = state.days.map(day => {
+        let newSpotCount = countSpotsOneDay(day, state);
+        return { ...day, spots: newSpotCount };
+      });
+
+      //loop through interviews arr and count which interview is null
+
+      // const days = [];
+      // for (let day of state.days) {
+      //   // stuff
+      //   days.push(day);
+      // }
+
+
+
+      /////// Jeremy generally decreased the quantity of rambling like a fool
+
+
+
+
 
       return {
         ...state,
