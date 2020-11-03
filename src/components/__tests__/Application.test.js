@@ -7,10 +7,7 @@ import Application from "components/Application";
 
 
 afterEach(cleanup);
-// afterEach(() => { cleanup() })
-// beforeEach(() => {
-//   localStorage.clear();
-// })
+
 describe("Application", () => {
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     const { getByText } = render(<Application />);
@@ -30,7 +27,6 @@ describe("Application", () => {
     await waitForElement(() => getByText(container, "Archie Cohen"))
 
     const appointments = getAllByTestId(container, "appointment");
-    // const appointments = await waitForElement(() => { getAllByTestId(container, "appointment") });
     const appointment = appointments[0];
 
     fireEvent.click(getByAltText(appointment, "Add"))
@@ -52,8 +48,6 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"))
 
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
-    // debug(day)
-
 
 
   });
@@ -64,7 +58,6 @@ describe("Application", () => {
 
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    console.log(prettyDOM(container))
 
     // 3. Click the "Delete" button on the first filled appointment. ----Click the "Delete" button on the booked appointment.
     const appointment = getAllByTestId(container, "appointment")
@@ -88,7 +81,6 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
 
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
-    // debug(day)
 
   });
 
