@@ -32,7 +32,7 @@ const useApplicationData = () => {
   }, [])
 
   //COMMENTED OUT CODE WHEN IMPLEMENTED ALLOW ALL TESTS in src/components/__tests__/Application.test.js TO PASS
-  //DON'T YET HAVE TEST THAT CAN MCOK WEBSOCKETS FEATURE
+  //DON'T YET HAVE TEST THAT CAN MOCK WEBSOCKETS FEATURE
   const bookInterview = (id, interview) => {
 
     return axios.put(`/api/appointments/${id}`, { interview })
