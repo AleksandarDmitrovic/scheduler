@@ -30,7 +30,7 @@ const reducer = (state, action) => {
       //Calculating Spots Remaining on UI side
 
       //loop through interviews arr and count which interview is null
-      const countSpotsOneDay = (dayObj, state) => {
+      const countSpotsOneDay = (dayObj) => {
         let answer = 0;
         for (let apptId of dayObj.appointments) {
           if (appointments[apptId].interview === null) {
@@ -41,7 +41,7 @@ const reducer = (state, action) => {
       };
 
       const days = state.days.map(day => {
-        let newSpotCount = countSpotsOneDay(day, state);
+        let newSpotCount = countSpotsOneDay(day);
         return { ...day, spots: newSpotCount };
       });
 
