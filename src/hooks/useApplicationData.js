@@ -31,7 +31,8 @@ const useApplicationData = () => {
 
   }, [])
 
-  //COMMENTED OUT CODE WHEN IMPLEMENTED ALLOW ALL TESTS in src/components/__tests__/Application.test.js TO PASS
+  //COMMENTED OUT CODE (Lines 39-41 + 47-49) WHEN IMPLEMENTED ALLOW ALL TESTS in src/components/__tests__/Application.test.js TO PASS
+  //Lines 53 - 74 must also be commented out for the integration tests.
   //DON'T YET HAVE TEST THAT CAN MOCK WEBSOCKETS FEATURE
   const bookInterview = (id, interview) => {
 
