@@ -84,5 +84,37 @@ describe("Application", () => {
 
   });
 
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+    // 1. Render the Application.
+
+
+    // 2. Wait until the text "Archie Cohen" is displayed.
+
+
+    // 3. Click the "Edit" button on the booked appointment.
+
+
+    // 4. Check that the element with the text "Archie Cohen" is displayed. 
+
+
+    // 5. Edit the student name / interviewer
+
+
+    // 6. Click the "Save" button on that same appointment.
+
+
+    // 7. Check that the element with the text "Saving" is displayed.
+
+
+    // 8. Wait until the element with the new test "" is displayed.
+
+
+    // 9. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining".
+
+
+
+
+  });
+
 });
 
