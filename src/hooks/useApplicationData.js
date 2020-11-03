@@ -26,6 +26,7 @@ function reducer(state, action) {
       if (checkInterview.interview !== null) {
         editingAppointment = true;
       }
+      // let editingAppointment = checkInterview.interview !== null;
 
 
       const id = action.id;
@@ -47,7 +48,7 @@ function reducer(state, action) {
         ...state.days
       ]
 
-      const [theSpotsDay] = days.filter(day => {
+      let [theSpotsDay] = days.filter(day => {
         return day.appointments.includes(id)
       })
 
@@ -59,7 +60,49 @@ function reducer(state, action) {
         numOfSpotsRemaining = theSpotsDay.spots - 1
       }
 
-      theSpotsDay.spots = numOfSpotsRemaining
+
+
+      // /////// Jeremy starts rambling like a fool
+
+
+      // // idempotence
+      // // idem potence
+      // // idem: same
+      // // potence: ability to have an effect / strength / power / magicalpower
+
+
+      // // recalculate all the days's spots.  who cares what they were.
+
+      // const countSpotsOneDay = (dayObj, state) => {
+      //   let answer = 0;
+      //   for (let apptId of dayObj.appointments) {
+      //     if (state.appointments[apptId].interview === null) {
+      //       answer++;
+      //     }
+      //   }
+      //   return answer;
+      // };
+
+      // const days = state.days.map(day => {
+      //   let newSpotCount = countSpotsOneDay(day, state);
+      //   return { ...day, spots: newSpotCount };
+      // });
+
+      // //loop through interviews arr and count which interview is null
+
+      // // const days = [];
+      // // for (let day of state.days) {
+      // //   // stuff
+      // //   days.push(day);
+      // // }
+
+
+
+      // /////// Jeremy generally decreased the quantity of rambling like a fool
+
+
+      // theSpotsDay.spots = numOfSpotsRemaining
+      theSpotsDay = { ...theSpotsDay, spots: numOfSpotsRemaining };
       days[parseInt(theSpotsDay.id, 10) - 1] = theSpotsDay;
 
       return {

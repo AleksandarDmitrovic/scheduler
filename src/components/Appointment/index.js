@@ -91,7 +91,7 @@ export default function Appointment(props) {
         onEdit={edit}
       />)}
       {mode === CONFIRM && (<Confirm
-        message={"Are you sure you would like to delete"}
+        message={"Are you sure you would like to delete?"}
         onCancel={cancel}
         onConfirm={deleting}
       />)}
