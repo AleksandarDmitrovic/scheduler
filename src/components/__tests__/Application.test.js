@@ -37,16 +37,16 @@ describe("Application", () => {
     fireEvent.click(getByText(appointment, "Save"));
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
-    // console.log('appointment :', prettyDOM(appointment));
+
 
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones")); ///WebSockets issue
-    // debug(appointment);
 
 
     const day = getAllByTestId(container, "day").find(day => {
       return queryByText(day, "Monday")
     })
-    console.log('day :', prettyDOM(day));
+
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
 
 
   });
