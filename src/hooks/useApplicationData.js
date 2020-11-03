@@ -17,13 +17,6 @@ function reducer(state, action) {
         interviewers: action.interviewers
       }
     case SET_INTERVIEW: {
-      // //Check for editing before state change
-      // const checkInterview = {
-      //   ...state.appointments[action.id]
-      // }
-      // let editingAppointment = checkInterview.interview !== null;
-
-
       const id = action.id;
       const interview = action.interview ? { ...action.interview } : null;
 
@@ -37,40 +30,9 @@ function reducer(state, action) {
         [id]: appointment
       };
 
-      // //Calculating Spots Reamining on UI side
-      // let numOfSpotsRemaining;
-      // let days = [
-      //   ...state.days
-      // ]
+      //Calculating Spots Remaining on UI side
 
-      // let [theSpotsDay] = days.filter(day => {
-      //   return day.appointments.includes(id)
-      // })
-
-      // if (interview === null) {
-      //   numOfSpotsRemaining = theSpotsDay.spots + 1
-      // } else if (editingAppointment) {
-      //   numOfSpotsRemaining = theSpotsDay.spots
-      // } else {
-      //   numOfSpotsRemaining = theSpotsDay.spots - 1
-      // }
-
-      // theSpotsDay = { ...theSpotsDay, spots: numOfSpotsRemaining };
-      // days[parseInt(theSpotsDay.id, 10) - 1] = theSpotsDay;
-
-
-
-      /////// Jeremy starts rambling like a fool
-
-
-      // idempotence
-      // idem potence
-      // idem: same
-      // potence: ability to have an effect / strength / power / magicalpower
-
-
-      // recalculate all the days's spots.  who cares what they were.
-
+      //loop through interviews arr and count which interview is null
       const countSpotsOneDay = (dayObj, state) => {
         let answer = 0;
         for (let apptId of dayObj.appointments) {
@@ -85,21 +47,6 @@ function reducer(state, action) {
         let newSpotCount = countSpotsOneDay(day, state);
         return { ...day, spots: newSpotCount };
       });
-
-      //loop through interviews arr and count which interview is null
-
-      // const days = [];
-      // for (let day of state.days) {
-      //   // stuff
-      //   days.push(day);
-      // }
-
-
-
-      /////// Jeremy generally decreased the quantity of rambling like a fool
-
-
-
 
 
       return {
