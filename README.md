@@ -7,6 +7,12 @@ Using the latest tools and techniques, I built and tested this as a React applic
 I deployed the server to Heroku, and the client side to Netlify. Click the link below to see the deployed application.
 https://ecstatic-kowalevski-cf8501.netlify.app/
 
+## Final Product
+
+!["Screenshot of the Interview Scheduler Home Page "](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/home-page.png?raw=true)
+!["Screenshot of an appointment form"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/appointment-form.png?raw=true)
+!["Screenshot of appointment delete confirmation"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/delete-confirmation.png?raw=true)
+
 ## Setup
 
 Install dependencies with `npm install`.
