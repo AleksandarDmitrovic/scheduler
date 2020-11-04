@@ -60,7 +60,6 @@ const useApplicationData = () => {
     }
     webSocket.onmessage = event => {
       const message = JSON.parse(event.data);
-      console.log('message :', message);
 
       if (message.type === "SET_INTERVIEW") {
         const id = message.id
