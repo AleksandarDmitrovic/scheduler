@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import InterviewerList, { setInterviewer } from 'components/InterviewerList';
+import InterviewerList from 'components/InterviewerList';
 import Button from 'components/Button';
 
 const Form = function (props) {

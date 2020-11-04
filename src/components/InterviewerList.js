@@ -3,7 +3,7 @@ import InterviewerListItem from 'components/InterviewerListItem';
 import PropTypes from 'prop-types';
 
 import "components/InterviewerList.scss"
-import DayList from './DayList';
+
 
 const InterviewerList = (props) => {
   const interviewers = props.interviewers.map(interviewer => {
