@@ -9,9 +9,9 @@ https://ecstatic-kowalevski-cf8501.netlify.app/
 
 ## Final Product
 
-!["Screenshot of the Interview Scheduler Home Page "](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/home-page.png?raw=true)
+<!-- !["Screenshot of the Interview Scheduler Home Page "](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/home-page.png?raw=true)
 !["Screenshot of an appointment form"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/appointment-form.png?raw=true)
-!["Screenshot of appointment delete confirmation"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/delete-confirmation.png?raw=true)
+!["Screenshot of appointment delete confirmation"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/delete-confirmation.png?raw=true) -->
 
 ## Setup
 
