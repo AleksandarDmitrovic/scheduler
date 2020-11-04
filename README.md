@@ -22,6 +22,14 @@ Spinner animation displays while requests are made to the server. Deleting inter
 ## Setup
 Clone repo and  Install dependencies with `npm install`. Clone and follow README from this repo [scheduler-api](https://github.com/AleksandarDmitrovic/scheduler-api).
 
+## Dependencies
+axios: ^0.21.0,
+classnames: ^2.2.6,
+normalize.css: ^8.0.1,
+react: ^16.9.0,
+react-dom: ^16.9.0,
+react-scripts: 3.0.0
+
 ## Running Webpack Development Server
 
 ```sh
