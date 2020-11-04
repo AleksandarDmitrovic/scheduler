@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import WS from "jest-websocket-mock";
 
 import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, getByDisplayValue } from "@testing-library/react";
 
@@ -9,6 +10,7 @@ import Application from "components/Application";
 afterEach(cleanup);
 
 describe("Application", () => {
+
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     const { getByText } = render(<Application />);
 
@@ -21,7 +23,9 @@ describe("Application", () => {
 
   });
 
-  xit("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+  it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+    const server = new WS("ws://localhost:8001");//Websockets
+
     const { container } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -41,21 +45,21 @@ describe("Application", () => {
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
+    server.send(`{"type":"SET_INTERVIEW","id":1,"interview":{"student":"Lydia Miller-Jones","interviewer":2}}`);//Websockets
 
-    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones")); ///WebSockets issue
-
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
     const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
 
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
 
+    server.close()//Websockets
 
   });
-  //SKIPPED INTEGRATION TESTS ALLOW WEBSOCKETS FEATURE TO FUNCTION
-  //DON'T YET HAVE TEST THAT CAN MOCK WEBSOCKETS FEATURE
-  //REFER TO useApplicationData.js file TO MAKE THE SKIPPED TESTS RUN PROPERLY
 
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+    const server = new WS("ws://localhost:8001");//Websockets
+
     // 1. Render the Application.
     const { container } = render(<Application />);
 
@@ -77,6 +81,8 @@ describe("Application", () => {
     // 6. Check that the element with the text "Deleting" is displayed.
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
 
+    server.send(`{"type":"SET_INTERVIEW","id":2,"interview":null}`);//Websockets
+
     // 7. Wait until the element with the Add button is displayed.
     await waitForElement(() => getByAltText(appointment, "Add"));
 
@@ -85,9 +91,12 @@ describe("Application", () => {
 
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
 
+    server.close()//Websockets
   });
 
-  xit("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+  it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+    const server = new WS("ws://localhost:8001");
+
     // 1. Render the Application.
     const { container } = render(<Application />);
 
@@ -117,6 +126,7 @@ describe("Application", () => {
     // 7. Check that the element with the text "Saving" is displayed.
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
+    server.send(`{"type":"SET_INTERVIEW","id":2,"interview":{"student":"Lydia Miller-Jones","interviewer":1}}`);//Websockets
 
     // 8. Wait until the element with the new student text "Lydia Miller-Jones" is displayed and check it.
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
@@ -126,6 +136,7 @@ describe("Application", () => {
 
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
 
+    server.close()//Websockets
   });
 
   it("shows the save error when failing to save an appointment", async () => {

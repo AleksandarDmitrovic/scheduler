@@ -31,23 +31,16 @@ const useApplicationData = () => {
 
   }, [])
 
-  //COMMENTED OUT CODE (Lines 39-41 + 47-49) WHEN IMPLEMENTED ALLOW ALL TESTS in src/components/__tests__/Application.test.js TO PASS
-  //Lines 53 - 74 must also be commented out for the integration tests.
-  //DON'T YET HAVE TEST THAT CAN MOCK WEBSOCKETS FEATURE
   const bookInterview = (id, interview) => {
 
     return axios.put(`/api/appointments/${id}`, { interview })
-    // .then(() => {
-    //   dispatch({ type: SET_INTERVIEW, id, interview })
-    // })
+
   }
 
   const deleteInterview = (id, interview = null) => {
 
     return axios.delete(`/api/appointments/${id}`, { data: { interview } })
-    // .then(() => {
-    //   dispatch({ type: SET_INTERVIEW, id, interview })
-    // })
+
   }
 
   useEffect(() => {
@@ -56,7 +49,7 @@ const useApplicationData = () => {
       webSocket.send("ping")
     }
     webSocket.onmessage = event => {
-      console.log("Message Received:", event.data);
+      // console.log("Message Received:", event.data); //Confirmation of connection
     }
     webSocket.onmessage = event => {
       const message = JSON.parse(event.data);
