@@ -37,41 +37,41 @@ const useApplicationData = () => {
   const bookInterview = (id, interview) => {
 
     return axios.put(`/api/appointments/${id}`, { interview })
-    // .then(() => {
-    //   dispatch({ type: SET_INTERVIEW, id, interview })
-    // })
+      .then(() => {
+        dispatch({ type: SET_INTERVIEW, id, interview })
+      })
   }
 
   const deleteInterview = (id, interview = null) => {
 
     return axios.delete(`/api/appointments/${id}`, { data: { interview } })
-    // .then(() => {
-    //   dispatch({ type: SET_INTERVIEW, id, interview })
-    // })
+      .then(() => {
+        dispatch({ type: SET_INTERVIEW, id, interview })
+      })
   }
 
-  useEffect(() => {
-    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
-    webSocket.onopen = event => {
-      webSocket.send("ping")
-    }
-    webSocket.onmessage = event => {
-      console.log("Message Received:", event.data);
-    }
-    webSocket.onmessage = event => {
-      const message = JSON.parse(event.data);
-      console.log('message :', message);
+  // useEffect(() => {
+  //   const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+  //   webSocket.onopen = event => {
+  //     webSocket.send("ping")
+  //   }
+  //   webSocket.onmessage = event => {
+  //     console.log("Message Received:", event.data);
+  //   }
+  //   webSocket.onmessage = event => {
+  //     const message = JSON.parse(event.data);
+  //     console.log('message :', message);
 
-      if (message.type === "SET_INTERVIEW") {
-        const id = message.id
-        const interview = message.interview
-        dispatch({ type: SET_INTERVIEW, id, interview })
-      }
-    }
-    //Cleanup 
-    return () => webSocket.close();
+  //     if (message.type === "SET_INTERVIEW") {
+  //       const id = message.id
+  //       const interview = message.interview
+  //       dispatch({ type: SET_INTERVIEW, id, interview })
+  //     }
+  //   }
+  //   //Cleanup 
+  //   return () => webSocket.close();
 
-  }, [])
+  // }, [])
 
 
 
