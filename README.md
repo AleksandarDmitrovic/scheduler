@@ -2,20 +2,25 @@
 
 Interview Scheduler is a single-page interview booking application.
 
-Using the latest tools and techniques, I built and tested this as a React application that allows users to book, edit and cancel interviews. Using a combination of concise APIs with a WebSocket server to build a realtime experience.
+Using the latest tools and techniques, I built and tested this as a React application that allows users to book, edit and cancel interviews. Using a combination of concise APIs with a WebSocket server to build a real-time experience. This project was made as part of the requirements for Lighthouse Labs' Web Development Bootcamp and utilizes code provided in the curriculum. 
 
-I deployed the server to Heroku, and the client side to Netlify. Click the link below to see the deployed application.
+Users create interviews by entering their name and choosing an interviewer from a list. By hovering over an interview a user can view save and delete buttons. The saving and deleting operations initiate spinner animations letting the user know their request are being processed. Once requests are successful the interviews are displayed automatically to all users using the application.
+
+This application has been deployed with the server on Heroku, and the client-side on Netlify. Click the link below to see the deployed application. 
 https://ecstatic-kowalevski-cf8501.netlify.app/
 
 ## Final Product
-
-<!-- !["Screenshot of the Interview Scheduler Home Page "](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/home-page.png?raw=true)
+Edit and delete buttons are displayed when hovering over an existing appointment.
+!["Screenshot of the Interview Scheduler Home Page "](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/home-page.png?raw=true)
+Appointment creation form allows users to enter their names and pick an interviewer from a list.
 !["Screenshot of an appointment form"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/appointment-form.png?raw=true)
-!["Screenshot of appointment delete confirmation"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/delete-confirmation.png?raw=true) -->
+Prompt to confirm deleting an interview.
+!["Screenshot of appointment delete confirmation"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/delete-confirmation.png?raw=true)
+Spinner animation displays while requests are made to the server. Deleting interview in this case.
+!["Screenshot of appointment deleting"](https://github.com/AleksandarDmitrovic/scheduler/blob/master/docs/appointment-deleting.png?raw=true)
 
 ## Setup
-
-Install dependencies with `npm install`.
+Clone repo and  Install dependencies with `npm install`. Clone and follow README from this repo [scheduler-api](https://github.com/AleksandarDmitrovic/scheduler-api).
 
 ## Running Webpack Development Server
 
