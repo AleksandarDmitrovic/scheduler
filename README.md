@@ -7,7 +7,8 @@ Using the latest tools and techniques, I built and tested this as a React applic
 Users create interviews by entering their name and choosing an interviewer from a list. By hovering over an interview a user can view edit and delete buttons. The saving and deleting operations initiate spinner animations letting the user know their request are being processed. Once requests are successful the interviews are displayed automatically to all users using the application. If a request is unsuccessful an error message will appear which a user can close and then retry their request.
 
 This application has been deployed with the server on Heroku, and the client-side on Netlify. Click the link below to see the deployed application. Please refresh the page first to initiate the Heroku server spin up. 
-https://ecstatic-kowalevski-cf8501.netlify.app/
+
+Live App: https://ecstatic-kowalevski-cf8501.netlify.app/
 
 ## Final Product
 Edit and delete buttons are displayed when hovering over an existing appointment.
